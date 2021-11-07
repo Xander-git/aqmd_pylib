@@ -66,7 +66,7 @@ def csv_folder2table(folder_path):
 
 
 def excel_folder2table(folder_path, sheet_name, header=0, index_col=None, usecols=None, ignore_index=False):
-    file_list = os.listdir()
+    file_list = os.listdir(folder_path)
     if not file_list:
         raise ValueError("Folder is empty")
     else:
