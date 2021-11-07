@@ -96,18 +96,21 @@ def df_decomposeDT(df: DataFrame, dtIdx, drop=False):
     cpy = df.copy()
     if drop is True:
         cpy.drop(df_i2label(cpy, i), axis=1)
-    cpy.insert(i + 1, 'year', year)
-    cpy.insert(i + 2, 'month', month)
-    cpy.insert(i + 3, 'day', dayofyear),
-    if (hour != 0).all():
-        cpy.insert(i + 4, 'hour', hour),
-    if (minute != 0).all():
-        cpy.insert(i + 5, 'minute', minute)
+    cpy.insert(i + 1, 'week of year', week)
+    cpy.insert(i + 1, 'dayofweek', dayofweek)
     if (sec != 0).all():
-        cpy.insert(i + 6, 'seconds', sec)
-    cpy.insert(i + 7, 'dayofweek', dayofweek)
-    cpy.insert(i + 8, 'week of year', week)
-    cpy.insert(i + 9, 'timezone', timezone)
+        cpy.insert(i + 1, 'seconds', sec)
+    if (minute != 0).all():
+        cpy.insert(i + 1, 'minute', minute)
+    if (hour != 0).all():
+        cpy.insert(i + 1, 'hour', hour)
+    cpy.insert(i + 1, 'day', dayofyear)
+    cpy.insert(i + 1, 'month', month)
+    cpy.insert(i + 1, 'year', year)
+    cpy.insert(i + 1, 'timezone', timezone)
+
+
+
 
     return cpy
 
