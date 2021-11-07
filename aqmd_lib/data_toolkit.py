@@ -7,6 +7,7 @@ from pandas import DataFrame
 
 from aqmd_lib import util
 
+
 def list_getMaxLength(x):
     if not x:
         raise ValueError('List is empty')
@@ -98,9 +99,12 @@ def df_decomposeDT(df: DataFrame, dtIdx, drop=False):
     cpy.insert(i + 1, 'year', year)
     cpy.insert(i + 2, 'month', month)
     cpy.insert(i + 3, 'day', dayofyear),
-    cpy.insert(i + 4, 'hour', hour),
-    cpy.insert(i + 5, 'minute', minute)
-    cpy.insert(i + 6, 'seconds', sec)
+    if (hour != 0).all():
+        cpy.insert(i + 4, 'hour', hour),
+    if (minute != 0).all():
+        cpy.insert(i + 5, 'minute', minute)
+    if (sec != 0).all():
+        cpy.insert(i + 6, 'seconds', sec)
     cpy.insert(i + 7, 'dayofweek', dayofweek)
     cpy.insert(i + 8, 'week of year', week)
     cpy.insert(i + 9, 'timezone', timezone)
