@@ -65,7 +65,7 @@ def csv_folder2table(folder_path):
             return table
 
 
-def excel_folder2table(folder_path, sheet_name, header=0, index_col=None, usecols=None, ignore_index=False):
+def excel_folder2table(folder_path, sheet_name, axis=0, header=0, index_col=None, usecols=None, ignore_index=False):
     file_list = os.listdir(folder_path)
     if not file_list:
         raise ValueError("Folder is empty")
@@ -78,5 +78,5 @@ def excel_folder2table(folder_path, sheet_name, header=0, index_col=None, usecol
             for i in range(1, len(file_list)):
                 new_table = pd.read_excel(os.path.join(folder_path, file_list[i]), sheet_name=sheet_name, header=header,
                                           index_col=index_col, usecols=usecols)
-                table = pd.concat([table, new_table], axis=0, ignore_index=ignore_index)
+                table = pd.concat([table, new_table], axis=axis, ignore_index=ignore_index)
             return table
