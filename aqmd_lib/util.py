@@ -50,17 +50,17 @@ def enforceSeq(x) -> Sequence:
         return [x]
 
 
-def csv_folder2table(folder_path):
+def csv_folder2table(folder_path, **kwargs):
     file_list = os.listdir(folder_path)
     if not file_list:
         raise ValueError("Folder is empty")
     else:
-        table = pd.read_csv(os.path.join(folder_path, file_list[0]))
+        table = pd.read_csv(os.path.join(folder_path, file_list[0]), **kwargs)
         if len(file_list) == 1:
             return table
         else:
             for i in range(1, len(file_list)):
-                new_table = pd.read_csv(os.path.join(folder_path, file_list[i]))
+                new_table = pd.read_csv(os.path.join(folder_path, file_list[i]), **kwargs)
                 table = pd.concat([table, new_table], axis=0, ignore_index=True)
             return table
 

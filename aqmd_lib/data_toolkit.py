@@ -46,10 +46,12 @@ def df_str2dt(df: DataFrame, idx, strFormat, curr_tz=None,
     cpy = df.copy()
     idx = util.df_x2i(cpy, idx)
     newDT = pd.to_datetime(cpy.iloc[:, idx].copy(), errors='raise', format=strFormat)
-    dtStr = newDT.dt.tz_localize(
-            tz=curr_tz, ambiguous=ambiguous, nonexistent=nonexistent)
+    if '%z' not in strFormat:
+        newDT = newDT.dt.tz_localize(
+                tz=curr_tz, ambiguous=ambiguous, nonexistent=nonexistent
+        )
     if overwrite:
-        cpy.iloc[:, idx] = dtStr
+        cpy.iloc[:, idx] = newDT
         cpy = cpy.rename(columns={str(df_i2label(cpy, idx)): f'datetime-{curr_tz}'})
     else:
         cpy.insert(idx + 1, f'datetime-{curr_tz}', dtStr, allow_duplicates=True)
@@ -108,9 +110,6 @@ def df_decomposeDT(df: DataFrame, dtIdx, drop=False):
     cpy.insert(i + 1, 'month', month)
     cpy.insert(i + 1, 'year', year)
     cpy.insert(i + 1, 'timezone', timezone)
-
-
-
 
     return cpy
 
