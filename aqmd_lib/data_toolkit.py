@@ -54,7 +54,7 @@ def df_str2dt(df: DataFrame, idx, strFormat, curr_tz=None,
         cpy.iloc[:, idx] = newDT
         cpy = cpy.rename(columns={str(df_i2label(cpy, idx)): f'datetime-{curr_tz}'})
     else:
-        cpy.insert(idx + 1, f'datetime-{curr_tz}', dtStr, allow_duplicates=True)
+        cpy.insert(idx + 1, f'datetime-{curr_tz}', newDT, allow_duplicates=True)
     return cpy
 
 
