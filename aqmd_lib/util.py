@@ -6,6 +6,7 @@ from typing import Tuple
 import numpy as np
 import pandas as pd
 from pandas import DataFrame
+from playsound import playsound
 
 
 def nLoop(x):
@@ -80,3 +81,7 @@ def excel_folder2table(folder_path, sheet_name, axis=0, header=0, index_col=None
                                           index_col=index_col, usecols=usecols)
                 table = pd.concat([table, new_table], axis=axis, ignore_index=ignore_index)
             return table
+
+
+def audio_cue():
+    playsound('resources/sfx/zapsplat_multimedia_alert_ping_mallet_chime_warm_soft_two_tone_001_73152.mp3')
