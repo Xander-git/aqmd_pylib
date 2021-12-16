@@ -84,4 +84,4 @@ def excel_folder2table(folder_path, sheet_name, axis=0, header=0, index_col=None
 
 
 def play_alertTone():
-    playsound('resources/sfx/zapsplat_multimedia_alert_ping_mallet_chime_warm_soft_two_tone_001_73152.mp3')
+    playsound('./resources/sfx/alert_tone_1.mp3')
