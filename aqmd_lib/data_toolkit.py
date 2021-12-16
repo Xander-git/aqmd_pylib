@@ -128,7 +128,8 @@ def df_convertTZ(df: DataFrame, idx, new_tz='None', overwrite: bool = False,
         target = target.dt.tz_convert(new_tz)
     if overwrite:
         cpy.iloc[:, i] = target
-        cpy.columns[i]=newColName
+        old_name = df_getColNames(cpy)[i]
+        cpy.rename(columns={str(old_name): str(newColName)}, inplace=True)
     else:
         cpy.insert(i + 1, newColName, target, allow_duplicates=True)
     return cpy
