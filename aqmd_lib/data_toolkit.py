@@ -7,6 +7,8 @@ from pandas import DataFrame
 
 from aqmd_lib import util
 
+from sklearn.model_selection import train_test_split
+
 
 def list_getMaxLength(x):
     if not x:
@@ -181,3 +183,75 @@ def df_mergeByCol(df1: DataFrame, df2: DataFrame, col1_idx, col2_idx, new_col_id
         return new_df.reset_index(drop=False)
     else:
         raise ValueError('incorrect value for new_col_idx')
+
+
+def df_indexMerge(data_list: List(DataFrame), verbose: bool = False):
+    df = data_list[0]
+    if verbose:
+        print(f'\nStarting Amount of Data: {len(df)}')
+    for i in range(1, len(data_list)):
+        df = pd.merge(left=df, right=data_list[i], left_index=True, right_index=True)
+        if verbose:
+            print(f'    -> {len(df)}')
+    return df
+
+class ML_Data:
+    def __init__(self, X: DataFrame, y: pd.Series, random_state=None, shuffle=False, test_size=0.2):
+        self._raw_X = X
+        self._raw_y = y
+        self._randomState = random_state
+        self._shuffle = shuffle
+        self._testSize = test_size
+
+        self._X = X
+        self._y = y
+        self._train_x = self._test_x = self._train_y = self._test_y = None
+
+    def split(self):
+        self._train_x, self._test_x, self._train_y, self._test_y = train_test_split(self._X, self._y,
+                                                                                    test_size=self._testSize,
+                                                                                    random_state=self._randomState,
+                                                                                    shuffle=self._shuffle)
+
+    def set_test_size(self, test_size):
+        self._testSize = test_size
+        self.split()
+
+    def set_random_state(self, random_state):
+        self._randomState = random_state
+        self.split()
+
+    def set_shuffle(self, shuffle: bool):
+        self._shuffle = shuffle
+        self.split()
+
+    def reset_vars(self):
+        self._X = self._raw_X
+        self._y = self._raw_y
+        self.split()
+
+    def get_x(self):
+        return self._X.copy()
+
+    def get_y(self):
+        return self._y.copy()
+
+    def get_train_x(self):
+        return self.train_X.copy()
+
+    def get_train_y(self):
+        return self._train_y.copy()
+
+    def get_test_x(self):
+        return self._test_x.copy()
+
+    def get_test_y(self):
+        return self._test_y.copy()
+
+    def set_x(self, new_x):
+        self._X = new_x
+        self.split()
+
+    def set_y(self,new_y):
+        self._y=new_y
+        self.split()
