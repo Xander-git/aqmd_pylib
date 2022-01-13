@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import os
-from typing import Iterable
+from typing import Iterable,List
 
 import pandas as pd
 from pandas import DataFrame
