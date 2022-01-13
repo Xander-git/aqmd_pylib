@@ -185,7 +185,7 @@ def df_mergeByCol(df1: DataFrame, df2: DataFrame, col1_idx, col2_idx, new_col_id
         raise ValueError('incorrect value for new_col_idx')
 
 
-def df_indexMerge(data_list: List(DataFrame), verbose: bool = False):
+def df_indexMerge(data_list: List[DataFrame], verbose: bool = False):
     df = data_list[0]
     if verbose:
         print(f'\nStarting Amount of Data: {len(df)}')
