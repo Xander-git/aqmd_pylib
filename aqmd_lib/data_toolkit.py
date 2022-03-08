@@ -102,11 +102,11 @@ def df_decomposeDT(df: DataFrame, dtIdx, drop=False):
         cpy.drop(df_i2label(cpy, i), axis=1)
     cpy.insert(i + 1, 'week of year', week)
     cpy.insert(i + 1, 'dayofweek', dayofweek)
-    if (sec != 0).all():
+    if ~(sec == 0).all():
         cpy.insert(i + 1, 'seconds', sec)
-    if (minute != 0).all():
+    if ~(minute == 0).all():
         cpy.insert(i + 1, 'minute', minute)
-    if (hour != 0).all():
+    if ~(hour == 0).all():
         cpy.insert(i + 1, 'hour', hour)
     cpy.insert(i + 1, 'day', dayofyear)
     cpy.insert(i + 1, 'month', month)
